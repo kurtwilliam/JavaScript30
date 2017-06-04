@@ -41,7 +41,7 @@
 
   <script>
 
-    // DEBOUNCE - Stops function from running too often, reduces time!!
+    // DEBOUNCE - Stops function from running too often, reduces function calls to speed up site!!
     function debounce(func, wait = 20, immediate = true) {
       var timeout;
       return function() {
@@ -57,13 +57,33 @@
       };
     }
 
+    // target elements with class slide-in
     const sliderImages = document.querySelectorAll('.slide-in');
 
+
     function checkSlide(e){
-      console.log(e)
+      sliderImages.forEach(sliderImage => { 
+        // Halfway through the image 
+        const slideInAt =  (window.scrollY + window.innerHeight) - sliderImage.height / 2;
+
+        // Bottom of the image 
+        const imageBottom = sliderImage.offsetTop + sliderImage.height;
+        // Sets point where Image is half shown
+        const isHalfShown = slideInAt > sliderImage.offsetTop;
+        // Sets point where the image is not scrolled past the image
+        const isNotScrolledPast = window.scrollY < imageBottom;
+        // If the image is at the point in the screen where its showing the bottom half, slide the image
+        if (isHalfShown && isNotScrolledPast) {
+          sliderImage.classList.add('active')
+        } else {
+          sliderImage.classList.remove('active')
+        }
+      });
+      // console.log(e)
     }
 
-    window.addEventListener('scroll',checkSlide);
+    // listen for scrolling down window (with debounce)
+    window.addEventListener('scroll', debounce(checkSlide));
 
   </script>
 
