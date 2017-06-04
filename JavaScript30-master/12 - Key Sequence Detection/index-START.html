@@ -12,7 +12,15 @@
 
 	window.addEventListener('keyup', (e) => {
 		console.log(e.key)
+		pressed.push(e.key)
+		pressed.splice(-secret.length - 1, pressed.length - secret.length);
+		console.log(pressed)
+		if (pressed.join('').includes(secret)) {
+			console.log('u da winna')
+			cornify_add();
+		}
 	})
+
 </script>
 </body>
 </html>
