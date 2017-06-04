@@ -7,16 +7,27 @@
 </head>
 <body>
 <script>
+
+	// Write a secret code like a Konami Code!!
+
+	// Start with an empty array to log where the key presses are going
 	const pressed = [];
+
+	// The secret word we are listening for
 	const secret = 'kurt';
 
+	// Event listener for input from user when typing on the window
 	window.addEventListener('keyup', (e) => {
 		console.log(e.key)
+		// For each character button pressed push the letter to the array
 		pressed.push(e.key)
+		// Splice the Array once it reaches the length of the secret word
 		pressed.splice(-secret.length - 1, pressed.length - secret.length);
 		console.log(pressed)
+		// if the code is pressed do something!
 		if (pressed.join('').includes(secret)) {
 			console.log('u da winna')
+			// Add unicorns and rainbows
 			cornify_add();
 		}
 	})
